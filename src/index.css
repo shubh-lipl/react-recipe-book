@@ -41,6 +41,11 @@ code {
   border: 1px solid #ccc;
   border-radius: 10px;
   display: flex;
+  cursor: pointer;
+  color: #000;
+}
+.Recipes a {
+  text-decoration: none;
 }
 .Recipe img {
   height: 110px;
@@ -53,7 +58,29 @@ code {
   width: 100%;
 }
 
-.Recipes,
-.View {
+.Recipes {
   width: 50%;
+}
+
+.View,
+.Form {
+  padding-left: 2%;
+  width: 48%;
+}
+
+.Recipe p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.View img {
+  max-height: 400px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.View p {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
 }

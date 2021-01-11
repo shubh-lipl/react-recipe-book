@@ -1,7 +1,13 @@
+import { useGlobalContext } from "../context";
+
 function View() {
+ const { state } = useGlobalContext()
+ const { selectedRecipe } = state
  return (
   <div className="View">
-   <h1>View Component</h1>
+   <img src={selectedRecipe.imgPath} alt={selectedRecipe.name} />
+   <h2>{selectedRecipe.name}</h2>
+   <p>{selectedRecipe.detail}</p>
   </div>
  );
 }
