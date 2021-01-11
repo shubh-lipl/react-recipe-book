@@ -12,6 +12,9 @@ function App() {
       <div className="App">
         <Navbar />
         <Recipes />
+        <Route exact path="/new">
+          <Form />
+        </Route>
         <Switch>
           <Route exact path="/edit/:id" children={<Form />}></Route>
           <Route exact path="/recipe/:id" children={<View />}></Route>

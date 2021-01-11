@@ -1,7 +1,15 @@
+import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../context';
+
 function Navbar() {
+ const { newRecipe } = useGlobalContext()
  return (
   <div className="Navbar">
-   <h1>Navbar Component</h1>
+   <Link to="/new">
+    <button type="button" onClick={newRecipe}>
+     New Recipe
+    </button>
+   </Link>
   </div>
  );
 }

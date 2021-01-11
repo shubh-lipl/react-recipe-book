@@ -1,13 +1,13 @@
 import Recipe from './Recipe';
-import data from '../data'
+import { useGlobalContext } from '../context'
 
 function Recipes() {
-
+ const { recipeList } = useGlobalContext()
 
  return (
   <div className="Recipes">
    {
-    data.map((item) => {
+    recipeList.map((item) => {
      let { id } = item
      return (
       <Recipe key={id} {...item} />

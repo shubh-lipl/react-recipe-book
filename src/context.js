@@ -6,21 +6,40 @@ const AppContext = createContext()
 
 let initialState = {
  recipeList: data,
- selectedRecipe: data[1]
+ selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
+ isEdit: false
 }
 
 export const AppProvider = ({ children }) => {
  const [state, dispatch] = useReducer(reducer, initialState)
 
  const selectRecipe = (id) => {
-  dispatch({ type: 'SELECT_RECIPE', payload: { id } })
+  dispatch({ type: 'SELECT_RECIPE', payload: id })
  }
 
+ const addRecipe = ({ id, name, imgPath, detail }) => {
+  dispatch({ type: 'ADD_RECIPE', payload: { id, name, imgPath, detail } })
+ }
+
+ const editRecipe = () => {
+  dispatch({ type: 'EDIT_RECIPE' })
+ }
+
+ const newRecipe = () => {
+  dispatch({ type: 'NEW_RECIPE' })
+ }
+ const updateRecipe = ({ id, name, imgPath, detail }) => {
+  dispatch({ type: 'UPDATE_RECIPE', payload: { id, name, imgPath, detail } })
+ }
 
  return (
   <AppContext.Provider value={{
-   state,
-   selectRecipe
+   ...state,
+   selectRecipe,
+   addRecipe,
+   editRecipe,
+   newRecipe,
+   updateRecipe
   }}>
    {children}
   </AppContext.Provider>

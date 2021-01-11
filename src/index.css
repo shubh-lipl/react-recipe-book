@@ -56,8 +56,11 @@ code {
 }
 .Navbar {
   width: 100%;
+  padding: 2rem 0;
 }
-
+.Navbar button {
+  font-size: 16px;
+}
 .Recipes {
   width: 50%;
 }
@@ -73,7 +76,8 @@ code {
   margin-top: 0;
 }
 
-.View img {
+.View img,
+.Form img {
   max-height: 400px;
   width: auto;
   border-radius: 10px;
@@ -83,4 +87,13 @@ code {
   font-size: 16px;
   line-height: 1.6;
   font-weight: 400;
+}
+
+.Form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.Form label span {
+  margin-bottom: 0.5rem;
 }
