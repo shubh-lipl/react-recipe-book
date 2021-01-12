@@ -3,12 +3,12 @@ import { useGlobalContext } from "../context";
 import { Link, useParams } from "react-router-dom";
 
 function View() {
- const { selectedRecipe, editRecipe } = useGlobalContext()
+ const { selectedRecipe, editRecipe, putIndex, deleteRecipe } = useGlobalContext()
  const { id } = useParams()
 
  useEffect(() => {
-  // console.log(selectedRecipe);
- }, [selectedRecipe])
+  putIndex(id)
+ }, [])
 
  return (
   <div className="View">
@@ -17,11 +17,14 @@ function View() {
      <button type="button" onClick={editRecipe}>Edit
      </button>
     </Link>
+    <Link to={`/recipe`}>
+     <button type="button" onClick={() => deleteRecipe(id)}>Delete
+     </button>
+    </Link>
    </div>
    <img src={selectedRecipe.imgPath} alt={selectedRecipe.name} />
    <h2>{selectedRecipe.name}</h2>
    <p>{selectedRecipe.detail}</p>
-
   </div>
 
  );

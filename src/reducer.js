@@ -3,7 +3,8 @@ export const reducer = (state, action) => {
   const selectRec = state.recipeList.filter(item => item.id === action.payload)
   return {
    ...state,
-   selectedRecipe: selectRec[0]
+   selectedRecipe: selectRec[0],
+   selectIndex: parseInt(selectRec[0].id)
   }
  }
  if (action.type === 'ADD_RECIPE') {
@@ -23,7 +24,8 @@ export const reducer = (state, action) => {
   return {
    ...state,
    isEdit: false,
-   selectedRecipe: { id: '', imgPath: '', name: '', detail: '' }
+   selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
+   selectIndex: null
   }
  }
  if (action.type === 'UPDATE_RECIPE') {
@@ -41,6 +43,26 @@ export const reducer = (state, action) => {
    selectedRecipe: { id: '', imgPath: '', name: '', detail: '' }
   }
  }
+
+ if (action.type === 'PUT_INDEX') {
+  const tempRecipe = state.recipeList.filter(item => item.id === parseInt(action.payload))
+  return {
+   ...state,
+   selectIndex: action.payload,
+   selectedRecipe: { ...tempRecipe[0] }
+  }
+ }
+ if (action.type === 'DELETE_RECIPE') {
+  const tempRecipe = state.recipeList.filter(item => item.id !== parseInt(action.payload))
+  return {
+   ...state,
+   recipeList: tempRecipe,
+   selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
+   selectIndex: null
+  }
+ }
+
+
 
  return state;
 }

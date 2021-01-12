@@ -7,7 +7,8 @@ const AppContext = createContext()
 let initialState = {
  recipeList: data,
  selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
- isEdit: false
+ isEdit: false,
+ selectIndex: null
 }
 
 export const AppProvider = ({ children }) => {
@@ -15,6 +16,10 @@ export const AppProvider = ({ children }) => {
 
  const selectRecipe = (id) => {
   dispatch({ type: 'SELECT_RECIPE', payload: id })
+ }
+
+ const putIndex = (id) => {
+  dispatch({ type: 'PUT_INDEX', payload: id })
  }
 
  const addRecipe = ({ id, name, imgPath, detail }) => {
@@ -32,6 +37,9 @@ export const AppProvider = ({ children }) => {
   dispatch({ type: 'UPDATE_RECIPE', payload: { id, name, imgPath, detail } })
  }
 
+ const deleteRecipe = (id) => {
+  dispatch({ type: 'DELETE_RECIPE', payload: id })
+ }
  return (
   <AppContext.Provider value={{
    ...state,
@@ -39,7 +47,9 @@ export const AppProvider = ({ children }) => {
    addRecipe,
    editRecipe,
    newRecipe,
-   updateRecipe
+   updateRecipe,
+   putIndex,
+   deleteRecipe
   }}>
    {children}
   </AppContext.Provider>

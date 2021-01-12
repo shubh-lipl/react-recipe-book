@@ -1,7 +1,11 @@
 import Recipe from './Recipe';
+import { useParams } from 'react-router-dom'
 import { useGlobalContext } from '../context'
 
 function Recipes() {
+
+ const { id } = useParams()
+ console.log(id);
  const { recipeList } = useGlobalContext()
 
  return (

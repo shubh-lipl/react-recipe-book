@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context'
 
 function Form() {
- const { addRecipe, selectedRecipe, isEdit, updateRecipe } = useGlobalContext()
+ const [imgValid, setImgValid] = useState(false)
+ const { addRecipe, selectedRecipe, isEdit, updateRecipe, putIndex } = useGlobalContext()
+ const { id } = useParams()
+ const regEx = new RegExp(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g)
+ console.log(id);
+
+ useEffect(() => {
+  if (id) {
+   putIndex(id)
+  }
+ }, [id])
 
  const [singleRecipe, setSingleRecipe] = useState({
-  id: new Date().getTime().toString(),
+  id: '',
   name: '',
   imgPath: '',
   detail: ''
@@ -14,14 +24,23 @@ function Form() {
 
  const handlerSubmit = (e) => {
   e.preventDefault();
+  const id = new Date().getTime().toString();
+  addRecipe({ ...singleRecipe, id });
   setSingleRecipe({
-   ...singleRecipe,
+   id: '',
    name: '',
    imgPath: '',
    detail: ''
   })
-  addRecipe({ ...singleRecipe });
  }
+
+ useEffect(() => {
+  if (regEx.test(singleRecipe.imgPath)) {
+   setImgValid(true)
+  } else {
+   setImgValid(false)
+  }
+ }, [singleRecipe.imgPath])
 
  useEffect(() => {
   setSingleRecipe({ ...selectedRecipe })
@@ -35,8 +54,13 @@ function Form() {
      <span>Image</span>
      <input onChange={(e) => setSingleRecipe({ ...singleRecipe, imgPath: e.target.value })} value={singleRecipe.imgPath} type="text" placeholder="Enter image path" name="image" id="image" />
      {
-      !singleRecipe.imgPath && <small style={{ color: 'red' }}>Required*</small>
+      (!singleRecipe.imgPath && !imgValid) && <small style={{ color: 'red' }}>Required*</small>
      }
+     {
+      (singleRecipe.imgPath && !imgValid) && <small style={{ color: 'red' }}>Enter valid image path*</small>
+     }
+
+
     </label>
     <label htmlFor="recipename">
      <span>Recipe Name</span>
@@ -54,13 +78,13 @@ function Form() {
     </label>
     {
      !isEdit && <div>
-      <button type="submit" disabled={singleRecipe.imgPath && singleRecipe.name && singleRecipe.detail ? false : true}>Add</button>
+      <button type="submit" disabled={singleRecipe && imgValid ? false : true}>Add</button>
      </div>
     }
    </form>
 
    {
-    isEdit && <Link to="/new">
+    isEdit && <Link to={`/recipe/${id}`}>
      <button type="button" onClick={() => updateRecipe({ ...singleRecipe })}>Update</button>
     </Link>
    }
