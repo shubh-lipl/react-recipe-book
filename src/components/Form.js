@@ -71,14 +71,14 @@ function Form() {
     </label>
     <label htmlFor="recipename">
      <span>Recipe Detail</span>
-     <textarea onChange={(e) => setSingleRecipe({ ...singleRecipe, detail: e.target.value })} value={singleRecipe.detail} name="ecipename" id="ecipename" placeholder="Enter recipe detail"></textarea>
+     <textarea onChange={(e) => setSingleRecipe({ ...singleRecipe, detail: e.target.value })} value={singleRecipe.detail} name="ecipename" id="ecipename" placeholder="Enter recipe detail" rows="6"></textarea>
      {
       !singleRecipe.detail && <small style={{ color: 'red' }}>Required*</small>
      }
     </label>
     {
      !isEdit && <div>
-      <button type="submit" disabled={singleRecipe && imgValid ? false : true}>Add</button>
+      <button type="submit" disabled={(singleRecipe.name && singleRecipe.imgPath && singleRecipe.detail && imgValid) ? false : true}>Add</button>
      </div>
     }
    </form>
