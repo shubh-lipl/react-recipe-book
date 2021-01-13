@@ -9,7 +9,9 @@ function Recipe({ id, name, imgPath, detail }) {
     <img src={imgPath} alt={name} />
     <div>
      <h4>{name}</h4>
-     <p>{detail.substring(0, 60)}...</p>
+     <p>{
+      `${detail.substring(0, 60)}${detail.length > 50 ? '...' : ''}`
+     }</p>
     </div>
    </div>
   </Link>
