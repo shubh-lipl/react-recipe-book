@@ -3,7 +3,7 @@ import { useGlobalContext } from "../context";
 import { Link, useParams } from "react-router-dom";
 
 function View() {
- const { selectedRecipe, editRecipe, putIndex, deleteRecipe, isEdit } = useGlobalContext()
+ const { selectedRecipe, editRecipe, putIndex, deleteRecipe } = useGlobalContext()
  const { id } = useParams()
 
  useEffect(() => {
