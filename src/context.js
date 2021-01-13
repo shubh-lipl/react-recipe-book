@@ -1,11 +1,11 @@
 import { createContext, useContext, useReducer } from 'react'
-import data from './data'
+// import data from './data'
 import { reducer } from './reducer'
 
 const AppContext = createContext()
 
 let initialState = {
- recipeList: data,
+ recipeList: [],
  selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
  isEdit: false,
  selectIndex: null
