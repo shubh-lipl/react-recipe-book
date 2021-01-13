@@ -30,6 +30,7 @@ textarea {
   letter-spacing: 0;
   line-height: 1.3;
   background: transparent;
+  outline: 0;
 }
 button {
   font-size: 18px !important;
@@ -44,6 +45,7 @@ button {
   margin-right: 0.4rem;
   margin-bottom: 1rem;
   opacity: 1;
+  outline: 0;
 }
 button:hover {
   color: #101820ff;

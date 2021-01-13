@@ -1,10 +1,13 @@
 export const reducer = (state, action) => {
  if (action.type === 'SELECT_RECIPE') {
-  const selectRec = state.recipeList.filter(item => item.id === action.payload)
+  const selectRecArr = state.recipeList.filter(item => parseInt(item.id) === parseInt(action.payload))
+  const selectRecipe = selectRecArr[0];
+  const selecedIndex = selectRecipe.id
   return {
    ...state,
-   selectedRecipe: selectRec[0],
-   selectIndex: parseInt(selectRec[0].id)
+   isEdit: true,
+   selectedRecipe: { ...selectRecipe },
+   selectIndex: selecedIndex
   }
  }
  if (action.type === 'ADD_RECIPE') {
@@ -45,7 +48,7 @@ export const reducer = (state, action) => {
  }
 
  if (action.type === 'PUT_INDEX') {
-  const tempRecipe = state.recipeList.filter(item => item.id === parseInt(action.payload))
+  const tempRecipe = state.recipeList.filter(item => parseInt(item.id) === parseInt(action.payload))
   return {
    ...state,
    selectIndex: action.payload,
@@ -53,7 +56,7 @@ export const reducer = (state, action) => {
   }
  }
  if (action.type === 'DELETE_RECIPE') {
-  const tempRecipe = state.recipeList.filter(item => item.id !== parseInt(action.payload))
+  const tempRecipe = state.recipeList.filter(item => parseInt(item.id) !== parseInt(action.payload))
   return {
    ...state,
    recipeList: tempRecipe,

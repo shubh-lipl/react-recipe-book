@@ -3,11 +3,12 @@ import { useGlobalContext } from "../context";
 import { Link, useParams } from "react-router-dom";
 
 function View() {
- const { selectedRecipe, editRecipe, putIndex, deleteRecipe } = useGlobalContext()
+ const { selectedRecipe, editRecipe, putIndex, deleteRecipe, isEdit } = useGlobalContext()
  const { id } = useParams()
 
  useEffect(() => {
   putIndex(id)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [])
 
  return (

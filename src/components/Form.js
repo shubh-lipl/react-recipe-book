@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context'
+import imageExists from 'image-exists'
 
 function Form() {
  const [imgValid, setImgValid] = useState(false)
  const { addRecipe, selectedRecipe, isEdit, updateRecipe, putIndex } = useGlobalContext()
  const { id } = useParams()
  const regEx = new RegExp(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g)
- console.log(id);
-
- useEffect(() => {
-  if (id) {
-   putIndex(id)
-  }
- }, [id])
+ // console.log(id);
 
  const [singleRecipe, setSingleRecipe] = useState({
   id: '',
@@ -34,21 +29,34 @@ function Form() {
   })
  }
 
+
  useEffect(() => {
-  if (regEx.test(singleRecipe.imgPath)) {
-   setImgValid(true)
-  } else {
-   setImgValid(false)
-  }
+
+  imageExists(singleRecipe.imgPath, function (exists) {
+   if (exists && regEx.test(singleRecipe.imgPath)) {
+    setImgValid(true)
+   }
+   else {
+    setImgValid(false)
+   }
+  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [singleRecipe.imgPath])
 
  useEffect(() => {
   setSingleRecipe({ ...selectedRecipe })
  }, [isEdit, selectedRecipe])
 
+ useEffect(() => {
+  if (id) {
+   putIndex(id)
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [id])
+
  return (
   <div className="Form">
-   <img src={singleRecipe.imgPath} alt={singleRecipe.name} />
+   {imgValid && <img src={singleRecipe.imgPath} alt={singleRecipe.name} />}
    <form onSubmit={handlerSubmit}>
     <label htmlFor="image">
      <span>Image</span>
@@ -85,7 +93,7 @@ function Form() {
 
    {
     isEdit && <Link to={`/recipe/${id}`}>
-     <button type="button" onClick={() => updateRecipe({ ...singleRecipe })}>Update</button>
+     <button disabled={(singleRecipe.name && singleRecipe.imgPath && singleRecipe.detail && imgValid) ? false : true} type="button" onClick={() => updateRecipe({ ...singleRecipe })}>Update</button>
     </Link>
    }
 
