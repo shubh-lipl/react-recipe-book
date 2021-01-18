@@ -1,10 +1,18 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer, useCallback } from 'react'
 import { reducer } from './reducer'
 
 const AppContext = createContext()
 
+const getLocalStorage = () => {
+ let recipe = localStorage.getItem('recipe');
+ if (recipe) {
+  return JSON.parse(recipe)
+ }
+}
+
+
 let initialState = {
- recipeList: [],
+ recipeList: getLocalStorage(),
  selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
  isEdit: false,
  selectIndex: null
@@ -39,6 +47,15 @@ export const AppProvider = ({ children }) => {
  const deleteRecipe = (id) => {
   dispatch({ type: 'DELETE_RECIPE', payload: id })
  }
+
+ const saveOnServer = useCallback(() => {
+  localStorage.setItem('recipe', JSON.stringify(state.recipeList))
+ }, [state.recipeList])
+
+ useEffect(() => {
+  saveOnServer()
+ }, [state.recipeList, saveOnServer])
+
  return (
   <AppContext.Provider value={{
    ...state,
@@ -48,7 +65,8 @@ export const AppProvider = ({ children }) => {
    newRecipe,
    updateRecipe,
    putIndex,
-   deleteRecipe
+   deleteRecipe,
+   saveOnServer
   }}>
    {children}
   </AppContext.Provider>
