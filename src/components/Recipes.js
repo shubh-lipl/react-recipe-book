@@ -11,7 +11,7 @@ function Recipes() {
  return (
   <div className="Recipes">
    {
-    recipeList.map((item) => {
+    recipeList && recipeList.map((item) => {
      let { id } = item
      return (
       <Recipe key={id} {...item} />
