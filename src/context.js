@@ -5,8 +5,14 @@ const AppContext = createContext()
 
 const getLocalStorage = () => {
  let recipe = localStorage.getItem('recipe');
- if (recipe) {
-  return JSON.parse(recipe)
+ if (recipe !== undefined) {
+  try {
+   return JSON.parse(recipe)
+  }
+  catch (errror) {
+   console.log(errror)
+   console.clear();
+  }
  }
 }
 
