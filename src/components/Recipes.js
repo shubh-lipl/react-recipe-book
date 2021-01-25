@@ -8,6 +8,14 @@ function Recipes() {
  // console.log(id);
  const { recipeList } = useGlobalContext()
 
+ if (recipeList.length === 0) {
+  return <div className="Recipes">
+   <h2>
+    No recipe in your list. Please add new recipe.
+  </h2>
+  </div>
+ }
+
  return (
   <div className="Recipes">
    {

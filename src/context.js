@@ -10,7 +10,6 @@ const getLocalStorage = () => {
  return []
 }
 
-
 let initialState = {
  recipeList: getLocalStorage(),
  selectedRecipe: { id: '', imgPath: '', name: '', detail: '' },
@@ -51,6 +50,8 @@ export const AppProvider = ({ children }) => {
  const saveOnServer = useCallback(() => {
   if (state.recipeList.length) {
    localStorage.setItem('recipe', JSON.stringify(state.recipeList));
+  } else if (state.recipeList.length === 0) {
+   localStorage.setItem('recipe', JSON.stringify([]));
   }
  }, [state.recipeList])
 

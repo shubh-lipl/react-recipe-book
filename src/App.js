@@ -10,8 +10,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <Recipes />
+        <Route path="/">
+          <Navbar />
+          <Recipes />
+        </Route>
         <Route exact path="/new">
           <Form />
         </Route>
