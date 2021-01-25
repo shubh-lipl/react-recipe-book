@@ -10,10 +10,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Route path="/"> */}
-        <Navbar />
-        <Recipes />
-        {/* </Route> */}
+        <Route path="/">
+          <Navbar />
+          <Recipes />
+        </Route>
         <Route exact path="/new">
           <Form />
         </Route>

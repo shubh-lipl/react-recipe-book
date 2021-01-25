@@ -51,9 +51,9 @@ export const AppProvider = ({ children }) => {
   if (state.recipeList.length) {
    localStorage.setItem('recipe', JSON.stringify(state.recipeList));
   }
-  // else if (state.recipeList.length === 0) {
-  //  localStorage.setItem('recipe', JSON.stringify([]));
-  // }
+  else if (state.recipeList.length === 0) {
+   localStorage.setItem('recipe', JSON.stringify([]));
+  }
  }, [state.recipeList])
 
  useEffect(() => {
