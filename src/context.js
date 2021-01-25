@@ -4,16 +4,10 @@ import { reducer } from './reducer'
 const AppContext = createContext()
 
 const getLocalStorage = () => {
- let recipe = localStorage.getItem('recipe');
- if (recipe !== undefined) {
-  try {
-   return JSON.parse(recipe)
-  }
-  catch (errror) {
-   console.log(errror)
-   console.clear();
-  }
+ if (JSON.parse(localStorage.getItem('recipe'))) {
+  return JSON.parse(localStorage.getItem('recipe'))
  }
+ return []
 }
 
 
@@ -55,7 +49,9 @@ export const AppProvider = ({ children }) => {
  }
 
  const saveOnServer = useCallback(() => {
-  localStorage.setItem('recipe', JSON.stringify(state.recipeList))
+  if (state.recipeList.length) {
+   localStorage.setItem('recipe', JSON.stringify(state.recipeList));
+  }
  }, [state.recipeList])
 
  useEffect(() => {
@@ -71,8 +67,7 @@ export const AppProvider = ({ children }) => {
    newRecipe,
    updateRecipe,
    putIndex,
-   deleteRecipe,
-   saveOnServer
+   deleteRecipe
   }}>
    {children}
   </AppContext.Provider>
